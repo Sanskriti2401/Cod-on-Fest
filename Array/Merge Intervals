@@ -1,0 +1,36 @@
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& in ){
+        
+        sort(in.begin(),in.end());
+
+        
+        vector<vector<int>>v;
+        
+        v.push_back(in[0]);
+        
+        int j=0,n=in.size();
+        for(int i=1;i<n;i++)
+        {
+            if(v[j][1]>=in[i][0])
+            {
+                int s=v[j][0];
+                int e=max(in[i][1],v[j][1]);
+                
+                v.pop_back();
+                v.push_back({s,e});
+            }
+            else
+            {
+                v.push_back(in[i]);
+                j++;
+                
+            }
+        }
+        
+        return v;
+        
+        
+        
+    }
+};
