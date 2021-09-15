@@ -1,0 +1,79 @@
+class Solution {
+public:
+    int calculate(string s) 
+    {
+        
+        stack<int>st;
+        int n=s.length();
+        int i=0,num=0,ans=0;
+        char sign='+';
+        
+        while(i<n)
+        {
+             if(isdigit(s[i]))
+            {
+                 num=0;
+                while(i<n && isdigit(s[i]))
+                {
+                     num=num*10+int(s[i]-'0');
+                    i++;
+                    
+                }
+                i--;
+                if(sign=='+')
+                    st.push(num);
+                else
+                {
+                    if(sign=='-')
+                    {
+                        num=-num;
+                        st.push(num);
+                    }
+                    else
+                    {
+                        if(sign=='/')
+                        {
+                            int a=st.top();
+                            st.pop();
+                            int ans=a/num;
+                            st.push(ans);
+                            
+                        }
+                        else
+                        {
+                             int a=st.top();
+                            st.pop();
+                             ans=a*num;
+                            st.push(ans);
+                            
+                        }
+                    }
+                }
+                  
+            }
+            else
+            {
+                if(s[i]!=' ')
+                {
+                    sign=s[i];
+                    
+                    
+                }
+            }
+            i++;
+            
+        }
+        ans=0;
+        
+        while(st.size()>0)
+        {
+            ans=ans+st.top();
+            st.pop();
+            
+        }
+        
+        return ans;
+        
+        
+    }
+};
